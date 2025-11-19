@@ -17,16 +17,17 @@ public class User {
     @Column(name = "id", nullable = false)
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
-    private String name;
+    @Column(unique = true)
+    private String username;
     private String number;
     private String password;
     private String city;
 
     private LocalDateTime createAt;
 
-    public User(UUID id, String name, String number, String password, String city, LocalDateTime createAt) {
+    public User(UUID id, String username, String number, String password, String city, LocalDateTime createAt) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.number = number;
         this.password = password;
         this.city = city;
@@ -48,12 +49,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNumber() {

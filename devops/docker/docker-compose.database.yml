@@ -1,0 +1,29 @@
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    labels:
+      group: database
+    ports:
+      - "6379:6379"
+    profiles:
+      - database
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  services_postgres:
+    container_name: services_postgres
+    labels:
+      group: database
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    profiles:
+      - database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data

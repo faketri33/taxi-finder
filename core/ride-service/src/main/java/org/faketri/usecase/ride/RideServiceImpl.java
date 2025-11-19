@@ -5,6 +5,8 @@ import org.faketri.domain.entity.ride.gateway.RideRepository;
 import org.faketri.domain.mapper.RideMapper;
 import org.faketri.domain.entity.ride.model.Ride;
 import org.faketri.infrastructure.ride.gateway.RideService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @Service
 public class RideServiceImpl implements RideService {
+    private static final Logger log = LoggerFactory.getLogger(RideServiceImpl.class);
     private final ApplicationEventPublisher eventPublisher;
     private final RideRepository rideRepository;
 
@@ -36,7 +39,10 @@ public class RideServiceImpl implements RideService {
     @Override
     public Ride save(Ride e) {
         Ride s = rideRepository.save(e);
-        if (s.getId() != null) eventPublisher.publishEvent(new RideCreateEvent(this, RideMapper.toDto(s)));
+        if (s.getId() != null) {
+            eventPublisher.publishEvent(new RideCreateEvent(this, RideMapper.toDto(s)));
+            log.info("Event publish RideCreateEvent");
+        }
         return s;
     }
 }

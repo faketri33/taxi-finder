@@ -1,6 +1,7 @@
 package org.faketri.domain.mapper;
 
 import dto.ride.RideResponseDto;
+import org.faketri.domain.dto.request.RideRequestDto;
 import org.faketri.domain.entity.ride.model.Ride;
 
 public class RideMapper {
@@ -14,5 +15,11 @@ public class RideMapper {
                 e.getCreateAt(),
                 e.getCancelAt()
         );
+    }
+    public static Ride toEntity(RideRequestDto e){
+        Ride s = new Ride();
+        s.setStartAddress(e.getStartAddress());
+        s.setEndAddress(e.getEndAddress());
+        return s;
     }
 }

@@ -2,8 +2,9 @@ package dto.rideStatus;
 
 public enum RideStatus {
     CREATE,
-    FINDING,
+    DISPATCHING ,
     ACCEPTED,
     CANCEL,
+    FAILED,
     FINISH
 }

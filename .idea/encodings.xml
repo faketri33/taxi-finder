@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/common/gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/dispatching-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/dispatching-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core/driver-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/payments-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/ride-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/ride-service/src/main/resources" charset="UTF-8" />

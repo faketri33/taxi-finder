@@ -1,5 +1,7 @@
 package org.faketri.usecase.ride;
 
+import dto.rideStatus.RideStatus;
+import jakarta.transaction.Transactional;
 import org.faketri.domain.event.ride.RideCreateEvent;
 import org.faketri.domain.entity.ride.gateway.RideRepository;
 import org.faketri.domain.mapper.RideMapper;
@@ -34,6 +36,12 @@ public class RideServiceImpl implements RideService {
     @Override
     public Page<Ride> findByUserId(UUID uuid, Pageable pageable) {
         return rideRepository.findByUserId(uuid, pageable);
+    }
+
+    @Override
+    @Transactional
+    public int acceptRide(UUID rideId, UUID driverId) {
+        return rideRepository.rideAccept(driverId, RideStatus.ACCEPTED, rideId, RideStatus.DISPATCHING);
     }
 
     @Override

@@ -20,6 +20,7 @@
         <module>core/dispatching-service</module>
         <module>core/ride-service</module>
         <module>core/payments-service</module>
+        <module>core/driver-service</module>
         <module>common/eureka</module>
         <module>common/gateway</module>
         <module>shared</module>

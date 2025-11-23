@@ -11,5 +11,6 @@ public interface RideService {
 
     Optional<Ride> findById(UUID uuid);
     Page<Ride> findByUserId(UUID uuid, Pageable pageable);
+    int acceptRide(UUID rideId, UUID driverId);
     Ride save(Ride e);
 }

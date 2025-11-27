@@ -1,4 +1,4 @@
-package org.faketri.infrastructure.ride.model;
+package org.faketri.infrastructure.kafka.consumer;
 
 import dto.rideStatus.RideStatus;
 import org.faketri.infrastructure.ride.gateway.DispatchService;

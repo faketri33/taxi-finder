@@ -2,6 +2,8 @@ package org.faketri.usecase.dispatch;
 
 import org.faketri.domain.entity.dispatch.gateway.DispatchRepository;
 import org.faketri.domain.entity.dispatch.model.DispatchState;
+import org.faketri.infrastructure.location.gateway.LocationClient;
+import org.faketri.infrastructure.notification.gateway.NotificationClient;
 import org.faketri.infrastructure.ride.gateway.DispatchService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -12,9 +14,15 @@ import java.util.UUID;
 public class DispatchServiceImpl implements DispatchService {
 
     private final DispatchRepository dispatchRepository;
+    private final LocationClient locationClient;
+    private final NotificationClient notificationClient;
 
-    public DispatchServiceImpl(DispatchRepository dispatchRepository) {
+    public DispatchServiceImpl(DispatchRepository dispatchRepository,
+                               LocationClient locationClient,
+                               NotificationClient notificationClient) {
         this.dispatchRepository = dispatchRepository;
+        this.locationClient = locationClient;
+        this.notificationClient = notificationClient;
     }
 
     @Override
@@ -29,7 +37,6 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Override
     public Mono<Void> dispatch(DispatchState e) {
-        // TODO : Request to location service, and get drivers, send request to notif service for drivers;
         return null;
     }
 }

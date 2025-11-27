@@ -1,6 +1,5 @@
 package org.faketri.domain.dto.request;
 
-import jakarta.persistence.Column;
 
 public class AddressRequestDto {
     private Double latitude;

@@ -113,4 +113,6 @@ public class Car {
     public final int hashCode() {
         return this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+    
+
 }

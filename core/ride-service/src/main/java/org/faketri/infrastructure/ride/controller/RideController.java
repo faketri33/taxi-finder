@@ -22,7 +22,6 @@ public class RideController {
     public ResponseEntity<RideResponseDto> request(@PathVariable("userId") UUID userId, @RequestBody RideRequestDto rideRequestDto){
         var e = RideMapper.toEntity(rideRequestDto);
         e.setUserId(userId);
-        return ResponseEntity
-                .ok(RideMapper.toDto(rideService.save(e)));
+        return ResponseEntity.ok(RideMapper.toDto(rideService.save(e)));
     }
 }

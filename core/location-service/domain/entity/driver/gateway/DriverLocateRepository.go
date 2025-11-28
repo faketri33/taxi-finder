@@ -38,8 +38,6 @@ func (r *redisLocationRepository) SaveLocation(ctx context.Context, d model.Driv
 
 	pipe := r.rdb.TxPipeline()
 
-	//prev := pipe.HMGet(ctx, metaKey, "status", "carType")
-
 	pipe.GeoAdd(ctx, r.geoKey, &redis.GeoLocation{
 		Name:      id,
 		Longitude: d.Lon,

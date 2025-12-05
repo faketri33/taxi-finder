@@ -1,10 +1,11 @@
 package org.faketri.infrastructure.location.gateway;
 
-import dto.CarType;
-import reactor.core.publisher.Flux;
 
-import java.util.UUID;
+import org.faketri.domain.event.FindNearbyDriver;
+import org.springframework.context.event.EventListener;
+import reactor.core.publisher.Mono;
 
 public interface LocationClient {
-    Flux<UUID> getRiderNearby(double lat, double lon, CarType carType);
+    @EventListener(FindNearbyDriver.class)
+    Mono<Void> getRiderNearby(FindNearbyDriver f);
 }

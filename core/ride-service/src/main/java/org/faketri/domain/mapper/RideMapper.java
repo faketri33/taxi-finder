@@ -12,12 +12,14 @@ public class RideMapper {
                 e.getStatus(),
                 e.getStartAddress() != null ? AddressMapper.toDto(e.getStartAddress()) : null,
                 e.getEndAddress() != null ? AddressMapper.toDto(e.getEndAddress()) : null,
+                e.getCarType(),
                 e.getCreateAt(),
                 e.getCancelAt()
         );
     }
     public static Ride toEntity(RideRequestDto e){
         Ride s = new Ride();
+        s.setCarType(e.getCarType());
         s.setStartAddress(e.getStartAddress());
         s.setEndAddress(e.getEndAddress());
         return s;

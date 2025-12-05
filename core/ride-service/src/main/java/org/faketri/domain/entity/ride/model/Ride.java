@@ -1,5 +1,6 @@
 package org.faketri.domain.entity.ride.model;
 
+import dto.CarType;
 import dto.rideStatus.RideStatus;
 import jakarta.persistence.*;
 import org.faketri.domain.entity.address.model.Address;
@@ -23,6 +24,7 @@ public class Ride {
     private UUID driverId;
     private UUID paymentsId;
     private RideStatus status;
+    private CarType carType;
     @Embedded
     @AttributeOverride(name = "latitude", column = @Column(name = "start_lat"))
     @AttributeOverride(name = "longitude", column = @Column(name = "start_lon"))
@@ -36,15 +38,15 @@ public class Ride {
     private LocalDateTime createAt;
     private LocalDateTime cancelAt;
 
-
-    public Ride(UUID id, UUID userId, UUID driverId, UUID paymentsId, RideStatus status, LocalDateTime createAt, LocalDateTime cancelAt) {
+    public Ride(UUID id, UUID userId, UUID driverId, UUID paymentsId, RideStatus status, CarType carType, Address startAddress, Address endAddress) {
         this.id = id;
         this.userId = userId;
         this.driverId = driverId;
         this.paymentsId = paymentsId;
         this.status = status;
-        this.createAt = createAt;
-        this.cancelAt = cancelAt;
+        this.carType = carType;
+        this.startAddress = startAddress;
+        this.endAddress = endAddress;
     }
 
     public Ride() {
@@ -109,6 +111,14 @@ public class Ride {
 
     public void setEndAddress(Address endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     public LocalDateTime getCreateAt() {

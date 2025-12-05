@@ -1,5 +1,6 @@
 package dto.ride;
 
+import dto.CarType;
 import dto.address.AddressResponseDto;
 import dto.rideStatus.RideStatus;
 
@@ -11,15 +12,16 @@ public class RideResponseDto {
     private RideStatus status;
     private AddressResponseDto startAddress;
     private AddressResponseDto endAddress;
-
+    private CarType carType;
     private LocalDateTime createAt;
     private LocalDateTime cancelAt;
 
-    public RideResponseDto(UUID id, RideStatus status, AddressResponseDto startAddress, AddressResponseDto endAddress, LocalDateTime createAt, LocalDateTime cancelAt) {
+    public RideResponseDto(UUID id, RideStatus status, AddressResponseDto startAddress, AddressResponseDto endAddress, CarType carType, LocalDateTime createAt, LocalDateTime cancelAt) {
         this.id = id;
         this.status = status;
         this.startAddress = startAddress;
         this.endAddress = endAddress;
+        this.carType = carType;
         this.createAt = createAt;
         this.cancelAt = cancelAt;
     }
@@ -57,6 +59,14 @@ public class RideResponseDto {
 
     public void setEndAddress(AddressResponseDto endAddress) {
         this.endAddress = endAddress;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     public LocalDateTime getCreateAt() {

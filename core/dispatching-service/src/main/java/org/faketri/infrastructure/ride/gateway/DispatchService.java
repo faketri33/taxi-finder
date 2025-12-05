@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface DispatchService {
     Mono<DispatchState> findById(UUID id);
-    Mono<Void> save(DispatchState e);
-    Mono<Void> dispatch(DispatchState e);
+    Mono<DispatchState> save(DispatchState e);
 }

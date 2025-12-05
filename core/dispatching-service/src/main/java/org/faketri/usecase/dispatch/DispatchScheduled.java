@@ -1,15 +1,15 @@
 package org.faketri.usecase.dispatch;
 
 import dto.rideStatus.RideStatus;
-import org.faketri.domain.entity.dispatch.model.DispatchState;
+import org.faketri.domain.event.StartDispatchForRide;
 import org.faketri.infrastructure.ride.gateway.DispatchService;
-import org.springframework.stereotype.Service;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
 import java.util.UUID;
 
-@Service
+@Component
 public class DispatchScheduled {
 
     private final DispatchService dispatchService;
@@ -18,10 +18,11 @@ public class DispatchScheduled {
         this.dispatchService = dispatchService;
     }
 
-    public Mono<Void> scheduleRoundTimer(DispatchState state, Duration timeout) {
-        UUID rideId = state.getId();
+    @EventListener(StartDispatchForRide.class)
+    public Mono<Void> scheduleRoundTimer(StartDispatchForRide event) {
+        UUID rideId = event.getRiderId();
 
-        return Mono.delay(timeout)
+        return Mono.delay(event.getDuration())
                 .flatMap(t -> dispatchService.findById(rideId))
                 .flatMap(current -> {
 
@@ -35,8 +36,7 @@ public class DispatchScheduled {
                     }
 
                     current.setRound(current.getRound() + 1);
-                    return dispatchService.save(current)
-                            .then(dispatchService.dispatch(current));
+                    return dispatchService.save(current);
                 })
                 .then();
     }

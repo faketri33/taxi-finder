@@ -2,9 +2,9 @@ package org.faketri.usecase.dispatch;
 
 import org.faketri.domain.entity.dispatch.gateway.DispatchRepository;
 import org.faketri.domain.entity.dispatch.model.DispatchState;
-import org.faketri.infrastructure.location.gateway.LocationClient;
-import org.faketri.infrastructure.notification.gateway.NotificationClient;
+import org.faketri.domain.event.FindNearbyDriver;
 import org.faketri.infrastructure.ride.gateway.DispatchService;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -14,15 +14,10 @@ import java.util.UUID;
 public class DispatchServiceImpl implements DispatchService {
 
     private final DispatchRepository dispatchRepository;
-    private final LocationClient locationClient;
-    private final NotificationClient notificationClient;
 
-    public DispatchServiceImpl(DispatchRepository dispatchRepository,
-                               LocationClient locationClient,
-                               NotificationClient notificationClient) {
+    public DispatchServiceImpl(DispatchRepository dispatchRepository)
+    {
         this.dispatchRepository = dispatchRepository;
-        this.locationClient = locationClient;
-        this.notificationClient = notificationClient;
     }
 
     @Override
@@ -31,12 +26,7 @@ public class DispatchServiceImpl implements DispatchService {
     }
 
     @Override
-    public Mono<Void> save(DispatchState e) {
-        return dispatchRepository.save(e).then(dispatch(e));
-    }
-
-    @Override
-    public Mono<Void> dispatch(DispatchState e) {
-        return null;
+    public Mono<DispatchState> save(DispatchState e) {
+        return dispatchRepository.save(e);
     }
 }

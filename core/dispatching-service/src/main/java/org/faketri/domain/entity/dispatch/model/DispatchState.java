@@ -1,5 +1,6 @@
 package org.faketri.domain.entity.dispatch.model;
 
+import dto.CarType;
 import dto.address.AddressResponseDto;
 import dto.rideStatus.RideStatus;
 import org.springframework.data.redis.core.RedisHash;
@@ -14,16 +15,18 @@ public class DispatchState {
     private List<UUID> driverNotificationSend;
     private AddressResponseDto addressStart;
     private AddressResponseDto addressEnd;
+    private CarType carType;
     private RideStatus status;
     private int round;
     private Instant roundExpiresAt;
 
-    public DispatchState(UUID id, List<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, RideStatus status) {
+    public DispatchState(UUID id, List<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
         this.rideId = id;
         this.driverNotificationSend = driverNotificationSend;
         this.addressStart = addressStart;
         this.addressEnd = addressEnd;
         this.status = status;
+        this.carType = carType;
         this.round = 1;
     }
 
@@ -77,6 +80,14 @@ public class DispatchState {
 
     public Instant getRoundExpiresAt() {
         return roundExpiresAt;
+    }
+
+    public CarType getCarType() {
+        return carType;
+    }
+
+    public void setCarType(CarType carType) {
+        this.carType = carType;
     }
 
     public void setRoundExpiresAt(Instant roundExpiresAt) {

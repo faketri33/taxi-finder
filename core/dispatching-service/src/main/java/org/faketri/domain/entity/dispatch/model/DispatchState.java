@@ -5,14 +5,14 @@ import dto.address.AddressResponseDto;
 import dto.rideStatus.RideStatus;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.util.List;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @RedisHash("dispatch_state")
 public class DispatchState {
     private UUID rideId;
-    private List<UUID> driverNotificationSend;
+    private Set<UUID> driverNotificationSend;
     private AddressResponseDto addressStart;
     private AddressResponseDto addressEnd;
     private CarType carType;
@@ -20,7 +20,7 @@ public class DispatchState {
     private int round;
     private Instant roundExpiresAt;
 
-    public DispatchState(UUID id, List<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
+    public DispatchState(UUID id, Set<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
         this.rideId = id;
         this.driverNotificationSend = driverNotificationSend;
         this.addressStart = addressStart;
@@ -28,6 +28,9 @@ public class DispatchState {
         this.status = status;
         this.carType = carType;
         this.round = 1;
+    }
+
+    public DispatchState() {
     }
 
     public UUID getId() {
@@ -38,11 +41,11 @@ public class DispatchState {
         this.rideId = id;
     }
 
-    public List<UUID> getDriverNotificationSend() {
+    public Set<UUID> getDriverNotificationSend() {
         return driverNotificationSend;
     }
 
-    public void setDriverNotificationSend(List<UUID> driverNotificationSend) {
+    public void setDriverNotificationSend(Set<UUID> driverNotificationSend) {
         this.driverNotificationSend = driverNotificationSend;
     }
 
@@ -92,5 +95,19 @@ public class DispatchState {
 
     public void setRoundExpiresAt(Instant roundExpiresAt) {
         this.roundExpiresAt = roundExpiresAt;
+    }
+
+    @Override
+    public String toString() {
+        return "DispatchState{" +
+                "rideId=" + rideId +
+                ", driverNotificationSend=" + driverNotificationSend +
+                ", addressStart=" + addressStart +
+                ", addressEnd=" + addressEnd +
+                ", carType=" + carType +
+                ", status=" + status +
+                ", round=" + round +
+                ", roundExpiresAt=" + roundExpiresAt +
+                '}';
     }
 }

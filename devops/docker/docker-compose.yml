@@ -1,3 +1,7 @@
+networks:
+  app-tier:
+    driver: bridge
+
 volumes:
   postgres_data:
   redis_data:

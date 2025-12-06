@@ -9,7 +9,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class RideCreateListener {
@@ -23,16 +23,17 @@ public class RideCreateListener {
 
     @KafkaListener(topics = "ride.create")
     public Mono<Void> onRideAccepted(RideResponseDto ride) {
+
         DispatchState state = new DispatchState(
                 ride.getId(),
-                List.of(),
+                Set.of(),
                 ride.getStartAddress(),
                 ride.getEndAddress(),
                 ride.getCarType(),
                 ride.getStatus()
         );
-        return dispatchService.save(state).then(Mono.fromRunnable(() ->
-                eventPublisher.publishEvent(new FindNearbyDriver(this, state)))
-        );
+        return dispatchService.save(state).doOnNext(current ->
+                eventPublisher.publishEvent(new FindNearbyDriver(this, state))
+        ).then();
     }
 }

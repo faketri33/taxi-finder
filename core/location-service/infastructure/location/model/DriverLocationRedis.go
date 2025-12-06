@@ -3,9 +3,9 @@ package model
 import (
 	"context"
 	"fmt"
+	"location-service/domain/entity/driver/gateway"
 	"location-service/domain/entity/driver/model"
 	"time"
-	"location-service/domain/entity/driver/gateway"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -98,12 +98,12 @@ func (r *redisLocationRepository) FindNearbyLocation(
 		return nil, err
 	}
 
-	drivers, err := r.rdb.ZRange(ctx, resultTmp, 0, int64(params.Limit-1)).Result(); 
-	if err != nil{
-		return nil, err;
+	drivers, err := r.rdb.ZRange(ctx, resultTmp, 0, int64(params.Limit-1)).Result()
+	if err != nil {
+		return nil, err
 	}
 
-	return MergeUnique(drivers, params.Exclude), nil
+	return excludeDrivers(drivers, params.Exclude), nil
 }
 
 func tempKey(prefix string) string {
@@ -142,23 +142,18 @@ func (r *redisLocationRepository) intersectGeoAndFilter(ctx context.Context, dst
 	return err
 }
 
-func MergeUnique[T comparable](a, b []T) []T {
-    m := make(map[T]struct{})
-    result := make([]T, 0, len(a)+len(b))
+func excludeDrivers(drivers []string, exclude []string) []string {
+	excludeMap := make(map[string]struct{}, len(exclude))
+	for _, id := range exclude {
+		excludeMap[id] = struct{}{}
+	}
 
-    for _, v := range a {
-        if _, exists := m[v]; !exists {
-            m[v] = struct{}{}
-            result = append(result, v)
-        }
-    }
+	result := make([]string, 0, len(drivers))
+	for _, id := range drivers {
+		if _, found := excludeMap[id]; !found {
+			result = append(result, id)
+		}
+	}
 
-    for _, v := range b {
-        if _, exists := m[v]; !exists {
-            m[v] = struct{}{}
-            result = append(result, v)
-        }
-    }
-
-    return result
+	return result
 }

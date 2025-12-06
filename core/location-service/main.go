@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"location-service/domain/entity/driver/gateway"
 	infrastructure "location-service/infastructure/location/gateway"
+	"location-service/infastructure/location/model"
 	"location-service/usecase"
 	"os"
 
@@ -24,7 +24,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	repo := gateway.NewRedisLocationRepository(rdb)
+	repo := model.NewRedisLocationRepository(rdb)
 	service := usecase.NewLocationService(repo)
 	handler := infrastructure.NewLocationHandler(service)
 

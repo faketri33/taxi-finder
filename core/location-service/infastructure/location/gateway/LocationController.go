@@ -2,9 +2,12 @@ package infrastructure
 
 import (
 	"context"
+	"location-service/domain/entity/driver/gateway"
 	"location-service/domain/entity/driver/model"
 	"location-service/usecase"
 	"strconv"
+
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -39,6 +42,7 @@ func (h *LocationHandler) UpdateLocation(c *fiber.Ctx) error {
 func (h *LocationHandler) GetNearby(c *fiber.Ctx) error {
 	lat, _ := strconv.ParseFloat(c.Query("lat"), 64)
 	lon, _ := strconv.ParseFloat(c.Query("lon"), 64)
+	excludeStr := strings.Split(c.Query("exclude", ""), ",")
 
 	distanceStr := c.Query("distance", "3000")
 	carType := c.Query("carType", "")
@@ -55,7 +59,16 @@ func (h *LocationHandler) GetNearby(c *fiber.Ctx) error {
 		limit = 10
 	}
 
-	drivers, err := h.service.GetNearbyDrivers(context.Background(), distance, lat, lon, status, carType, limit)
+	drivers, err := h.service.GetNearbyDrivers(context.Background(), gateway.DriverSearchParams{
+		Radius:  int(distance),
+		Lat:     lat,
+		Lon:     lon,
+		CarType: carType,
+		Status:  status,
+		Limit:   limit,
+		Exclude: excludeStr,
+	})
+
 	if err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 	}

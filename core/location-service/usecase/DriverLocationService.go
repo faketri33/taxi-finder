@@ -11,7 +11,7 @@ import (
 
 type LocationService interface {
 	UpdateDriverLocation(ctx context.Context, loc model.DriverLocate) error
-	GetNearbyDrivers(ctx context.Context, radius, lat, lon float64, status, carType string, limit int) ([]string, error)
+	GetNearbyDrivers(ctx context.Context, params gateway.DriverSearchParams) ([]string, error)
 }
 
 type locationService struct {
@@ -32,6 +32,6 @@ func (s *locationService) UpdateDriverLocation(ctx context.Context, loc model.Dr
 	return s.repo.SaveLocation(ctx, loc)
 }
 
-func (s *locationService) GetNearbyDrivers(ctx context.Context, radius, lat, lon float64, status, carType string, limit int) ([]string, error) {
-	return s.repo.FindNearbyLocation(ctx, radius, lat, lon, status, carType, limit)
+func (s *locationService) GetNearbyDrivers(ctx context.Context, params gateway.DriverSearchParams) ([]string, error) {
+	return s.repo.FindNearbyLocation(ctx, params)
 }

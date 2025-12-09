@@ -30,7 +30,7 @@ func (h *LocationHandler) UpdateLocation(c *fiber.Ctx) error {
 	if err := c.BodyParser(&loc); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
-
+	
 	err := h.service.UpdateDriverLocation(context.Background(), loc)
 	if err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())

@@ -83,7 +83,7 @@ func (r *redisLocationRepository) FindNearbyLocation(
 	geoTmp := tempKey("geo")
 	filterTmp := tempKey("flt")
 	resultTmp := tempKey("res")
-
+	
 	defer r.rdb.Del(ctx, geoTmp, filterTmp, resultTmp)
 
 	if err := r.storeGeoNearby(ctx, geoTmp, float64(params.Radius), params.Lat, params.Lon); err != nil {
@@ -122,16 +122,15 @@ func (r *redisLocationRepository) storeGeoNearby(ctx context.Context, dst string
 
 func (r *redisLocationRepository) buildFilterSet(ctx context.Context, dst, status, carType string) error {
 	keys := []string{
-		r.statusPrefix + status,
-		r.typePrefix + carType,
-	}
+        r.statusPrefix + status,
+        r.typePrefix + carType,
+    }
 
-	_, err := r.rdb.ZUnionStore(ctx, dst, &redis.ZStore{
-		Keys:    keys,
-		Weights: []float64{1, 1},
-	}).Result()
+    _, err := r.rdb.ZInterStore(ctx, dst, &redis.ZStore{
+        Keys: keys,
+    }).Result()
 
-	return err
+	return err;
 }
 
 func (r *redisLocationRepository) intersectGeoAndFilter(ctx context.Context, dst, geoTmp, fltTmp string) error {

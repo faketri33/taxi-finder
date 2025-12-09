@@ -1,9 +1,12 @@
 package org.faketri.infrastructure.kafka.consumer;
 
 import dto.ride.RideResponseDto;
-import org.faketri.domain.entity.dispatch.model.DispatchState;
+import dto.rideStatus.RideStatus;
+import org.faketri.domain.entity.DispatchState;
 import org.faketri.domain.event.FindNearbyDriver;
-import org.faketri.infrastructure.ride.gateway.DispatchService;
+import org.faketri.usecase.dispatch.DispatchService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -13,27 +16,24 @@ import java.util.Set;
 
 @Service
 public class RideCreateListener {
+    private static final Logger log = LoggerFactory.getLogger(RideCreateListener.class);
     private final DispatchService dispatchService;
-    private final ApplicationEventPublisher eventPublisher;
 
-    public RideCreateListener(DispatchService dispatchService, ApplicationEventPublisher eventPublisher) {
+    public RideCreateListener(DispatchService dispatchService) {
         this.dispatchService = dispatchService;
-        this.eventPublisher = eventPublisher;
     }
 
     @KafkaListener(topics = "ride.create")
     public Mono<Void> onRideAccepted(RideResponseDto ride) {
-
+        log.info("Ride accepted id : {}", ride.getId());
         DispatchState state = new DispatchState(
                 ride.getId(),
                 Set.of(),
                 ride.getStartAddress(),
                 ride.getEndAddress(),
                 ride.getCarType(),
-                ride.getStatus()
+                RideStatus.DISPATCHING
         );
-        return dispatchService.save(state).doOnNext(current ->
-                eventPublisher.publishEvent(new FindNearbyDriver(this, state))
-        ).then();
+        return dispatchService.save(state).then();
     }
 }

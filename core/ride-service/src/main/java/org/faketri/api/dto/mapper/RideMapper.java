@@ -5,12 +5,9 @@ import org.faketri.api.dto.request.RideRequestDto;
 import org.faketri.domain.model.ride.Ride;
 import org.faketri.infrastructure.persistence.entity.ride.model.RideEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface RideMapper {
-
-    RideMapper INSTANCE = Mappers.getMapper(RideMapper.class);
 
     Ride toDomain(RideEntity entity);
 

@@ -3,16 +3,16 @@ package org.faketri.domain.event;
 import org.springframework.context.ApplicationEvent;
 
 import java.time.Duration;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 public class StartDispatchForRide extends ApplicationEvent {
 
     private final UUID riderId;
-    private final Set<UUID> drivers;
+    private final List<UUID> drivers;
     private final Duration duration;
 
-    public StartDispatchForRide(Object source, UUID riderId, Set<UUID> drivers, Duration duration) {
+    public StartDispatchForRide(Object source, UUID riderId, List<UUID> drivers, Duration duration) {
         super(source);
         this.riderId = riderId;
         this.drivers = drivers;
@@ -23,7 +23,7 @@ public class StartDispatchForRide extends ApplicationEvent {
         return riderId;
     }
 
-    public Set<UUID> getDrivers() {
+    public List<UUID> getDrivers() {
         return drivers;
     }
 

@@ -1,6 +1,6 @@
-package org.faketri.infrastructure.config;
+package org.faketri.config;
 
-import org.faketri.domain.entity.dispatch.model.DispatchState;
+import org.faketri.infrastructure.persistence.entity.DispatchStateEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
@@ -13,15 +13,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     @Bean
-    public ReactiveRedisTemplate<String, DispatchState> reactiveRedisTemplate(
+    public ReactiveRedisTemplate<String, DispatchStateEntity> reactiveRedisTemplate(
             ReactiveRedisConnectionFactory factory) {
 
-        Jackson2JsonRedisSerializer<DispatchState> serializer =
-                new Jackson2JsonRedisSerializer<>(DispatchState.class);
+        Jackson2JsonRedisSerializer<DispatchStateEntity> serializer =
+                new Jackson2JsonRedisSerializer<>(DispatchStateEntity.class);
 
-        RedisSerializationContext<String, DispatchState> context =
+        RedisSerializationContext<String, DispatchStateEntity> context =
                 RedisSerializationContext
-                        .<String, DispatchState>newSerializationContext(new StringRedisSerializer())
+                        .<String, DispatchStateEntity>newSerializationContext(new StringRedisSerializer())
                         .value(serializer)
                         .build();
 

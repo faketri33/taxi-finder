@@ -1,6 +1,6 @@
 package org.faketri.domain.event;
 
-import org.faketri.domain.entity.dispatch.model.DispatchState;
+import org.faketri.domain.entity.DispatchState;
 import org.springframework.context.ApplicationEvent;
 
 

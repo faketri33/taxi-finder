@@ -1,4 +1,4 @@
-package org.faketri.infrastructure.service.notification.gateway;
+package org.faketri.infrastructure.client.notification.gateway;
 
 import reactor.core.publisher.Mono;
 

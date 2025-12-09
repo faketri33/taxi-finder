@@ -1,7 +1,7 @@
 package org.faketri.infrastructure.kafka.consumer;
 
 import dto.rideStatus.RideStatus;
-import org.faketri.infrastructure.ride.gateway.DispatchService;
+import org.faketri.usecase.dispatch.DispatchService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -19,7 +19,7 @@ public class RideAcceptListener {
 
     @KafkaListener(topics = "ride.accepted")
     public Mono<Void> onRideAccepted(UUID rideId) {
-        return dispatchService.findById(rideId)
+        return dispatchService.get(rideId)
                 .flatMap(state -> {
                     state.setStatus(RideStatus.ACCEPTED);
                     return dispatchService.save(state);

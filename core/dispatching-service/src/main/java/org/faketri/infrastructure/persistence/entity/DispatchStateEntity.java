@@ -1,4 +1,4 @@
-package org.faketri.domain.entity.dispatch.model;
+package org.faketri.infrastructure.persistence.entity;
 
 import dto.CarType;
 import dto.address.AddressResponseDto;
@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RedisHash("dispatch_state")
-public class DispatchState {
+public class DispatchStateEntity {
     private UUID rideId;
     private Set<UUID> driverNotificationSend;
     private AddressResponseDto addressStart;
@@ -20,7 +20,7 @@ public class DispatchState {
     private int round;
     private Instant roundExpiresAt;
 
-    public DispatchState(UUID id, Set<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
+    public DispatchStateEntity(UUID id, Set<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
         this.rideId = id;
         this.driverNotificationSend = driverNotificationSend;
         this.addressStart = addressStart;
@@ -30,14 +30,14 @@ public class DispatchState {
         this.round = 1;
     }
 
-    public DispatchState() {
+    public DispatchStateEntity() {
     }
 
-    public UUID getId() {
+    public UUID getRideId() {
         return rideId;
     }
 
-    public void setId(UUID id) {
+    public void setRideId(UUID id) {
         this.rideId = id;
     }
 

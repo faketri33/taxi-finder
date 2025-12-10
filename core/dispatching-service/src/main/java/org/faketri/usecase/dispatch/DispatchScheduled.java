@@ -2,6 +2,7 @@ package org.faketri.usecase.dispatch;
 
 import dto.rideStatus.RideStatus;
 import org.faketri.domain.event.StartDispatchForRide;
+import org.faketri.usecase.policy.DispatchStatePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -15,9 +16,11 @@ import java.util.UUID;
 public class DispatchScheduled {
 
     private static final Logger log = LoggerFactory.getLogger(DispatchScheduled.class);
+    private final DispatchStatePolicy dispatchStatePolicy;
     private final DispatchService dispatchService;
 
-    public DispatchScheduled(DispatchService dispatchService) {
+    public DispatchScheduled(DispatchStatePolicy dispatchStatePolicy, DispatchService dispatchService) {
+        this.dispatchStatePolicy = dispatchStatePolicy;
         this.dispatchService = dispatchService;
     }
 
@@ -29,8 +32,8 @@ public class DispatchScheduled {
             log.info("No drivers found for ride {}", rideId);
             return dispatchService.get(event.getRiderId())
                     .flatMap(state -> {
-                        state.setRound(state.getRound() + 1);
-                        return dispatchService.save(state);
+                        state.incrementRound(dispatchStatePolicy);
+                        return dispatchService.save(state).doOnNext(dispatchService::dispatch);
                     }).then();
         }
 
@@ -44,10 +47,9 @@ public class DispatchScheduled {
                         return Mono.empty();
                     }
                     log.info("Sending notifications for ride {}, round {}", rideId, current.getRound() + 1);
-                    current.setRound(current.getRound() + 1);
+                    current.incrementRound(dispatchStatePolicy);
                     current.getDriverNotificationSend().addAll(event.getDrivers());
-                    return dispatchService.save(current);
+                    return dispatchService.save(current).doOnNext(dispatchService::dispatch);
                 }).then();
     }
-
 }

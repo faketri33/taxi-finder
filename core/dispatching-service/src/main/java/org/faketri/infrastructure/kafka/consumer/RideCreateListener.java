@@ -3,11 +3,9 @@ package org.faketri.infrastructure.kafka.consumer;
 import dto.ride.RideResponseDto;
 import dto.rideStatus.RideStatus;
 import org.faketri.domain.entity.DispatchState;
-import org.faketri.domain.event.FindNearbyDriver;
 import org.faketri.usecase.dispatch.DispatchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -34,6 +32,8 @@ public class RideCreateListener {
                 ride.getCarType(),
                 RideStatus.DISPATCHING
         );
-        return dispatchService.save(state).then();
+        return dispatchService.save(state)
+                .doOnNext(dispatchService::dispatch)
+                .then();
     }
 }

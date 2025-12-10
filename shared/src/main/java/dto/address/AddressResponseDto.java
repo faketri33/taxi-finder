@@ -1,6 +1,7 @@
 package dto.address;
 
 public class AddressResponseDto {
+
     private Double latitude;
     private Double longitude;
     private String rawAddress;

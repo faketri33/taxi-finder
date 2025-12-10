@@ -32,4 +32,9 @@ public class RedisDispatchRepository implements DispatchRepository {
         return valueOps.set(key(dispatchStateEntity.getRideId()), dispatchStateEntity)
                 .map(success -> dispatchStateEntity);
     }
+
+    @Override
+    public Mono<Boolean> deleteById(UUID id) {
+        return valueOps.delete(key(id));
+    }
 }

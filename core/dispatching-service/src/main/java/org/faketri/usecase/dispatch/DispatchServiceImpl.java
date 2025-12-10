@@ -15,7 +15,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 @Service
-public class DispatchServiceImpl implements DispatchService {
+public class  DispatchServiceImpl implements DispatchService {
 
     private static final Logger log = LoggerFactory.getLogger(DispatchServiceImpl.class);
     private final DispatchRepository dispatchRepository;
@@ -49,14 +49,15 @@ public class DispatchServiceImpl implements DispatchService {
     }
 
     @Override
+    public Mono<Boolean> stopDispatch(DispatchState dispatchState) {
+        return dispatchRepository.deleteById(dispatchState.getRideId());
+    }
+
+    @Override
     public Mono<DispatchState> save(DispatchState e) {
         log.info("Save dispatch state : {}", e.getRideId());
         return dispatchRepository
                 .save(dispatchStateMapper.toEntity(e))
-                .map(dispatchStateMapper::toDomain)
-                .doOnNext(saved -> {
-                    log.info("Saving dispatch state {}", saved);
-                    dispatch(saved);
-                });
+                .map(dispatchStateMapper::toDomain);
     }
 }

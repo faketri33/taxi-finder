@@ -6,6 +6,7 @@ import dto.rideStatus.RideStatus;
 import org.faketri.domain.exception.RoundCountLimitException;
 import org.faketri.usecase.policy.DispatchStatePolicy;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -96,6 +97,10 @@ public class DispatchState {
         if (dispatchStatePolicy.roundPolicy(this.round + 1))
             throw new RoundCountLimitException("Round must be between 0 and 4", this);
         this.round++;
+    }
+
+    public void updateRoundTimeout(){
+        this.roundExpiresAt = Instant.now().plusSeconds(190);
     }
 
     public Instant getRoundExpiresAt() {

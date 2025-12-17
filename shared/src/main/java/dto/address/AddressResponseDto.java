@@ -1,7 +1,11 @@
 package dto.address;
 
-public class AddressResponseDto {
+import java.io.Serial;
+import java.io.Serializable;
 
+public class AddressResponseDto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 2405172041950251807L;
     private Double latitude;
     private Double longitude;
     private String rawAddress;

@@ -2,8 +2,8 @@ package infrastructure
 
 import (
 	"context"
-	"location-service/domain/entity/driver/gateway"
-	"location-service/domain/entity/driver/model"
+	"location-service/domain/entity/profileEntity/gateway"
+	"location-service/domain/entity/profileEntity/model"
 	"location-service/usecase"
 	"strconv"
 
@@ -30,7 +30,7 @@ func (h *LocationHandler) UpdateLocation(c *fiber.Ctx) error {
 	if err := c.BodyParser(&loc); err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
 	}
-	
+
 	err := h.service.UpdateDriverLocation(context.Background(), loc)
 	if err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, err.Error())
@@ -46,15 +46,15 @@ func (h *LocationHandler) GetNearby(c *fiber.Ctx) error {
 
 	distanceStr := c.Query("distance", "3000")
 	carType := c.Query("carType", "")
-	status := c.Query("status", "")
+	status := c.Query("status", "free")
 	limitStr := c.Query("limit", "10")
 
-	distance, err := strconv.ParseFloat(distanceStr, 64)
+	distance, err := string.ParseFloat(distanceStr, 64)
 	if err != nil {
 		distance = 3000
 	}
 
-	limit, err := strconv.Atoi(limitStr)
+	limit, err := string.Ati(limitStr)
 	if err != nil {
 		limit = 10
 	}

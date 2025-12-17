@@ -5,7 +5,6 @@ import dto.address.AddressResponseDto;
 import dto.ride.RideResponseDto;
 import dto.rideStatus.RideStatus;
 import org.faketri.ApplicationMain;
-import org.faketri.infrastructure.kafka.consumer.RideCreateListener;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

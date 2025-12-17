@@ -1,8 +1,7 @@
-package org.faketri.domain.entity.car.model;
+package org.faketri.infrastructure.persistence.entity;
 
 import dto.CarType;
 import jakarta.persistence.*;
-import org.faketri.domain.entity.driver.model.Driver;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
@@ -30,15 +29,15 @@ public class Car {
 
 
     @OneToOne
-    @JoinColumn(name = "driver_id")
-    private Driver driverId;
+    @JoinColumn(name = "profile_id")
+    private ProfileEntity profileEntityId;
 
-    public Driver getDriverId() {
-        return driverId;
+    public ProfileEntity getDriverId() {
+        return profileEntityId;
     }
 
-    public void setDriverId(Driver driverId) {
-        this.driverId = driverId;
+    public void setDriverId(ProfileEntity profileEntityId) {
+        this.profileEntityId = profileEntityId;
     }
 
     public UUID getId() {

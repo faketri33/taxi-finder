@@ -1,32 +1,29 @@
-package org.faketri.domain.entity.driver.model;
-
-
-import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
+package org.faketri.domain.entity.driver;
 
 import java.time.Instant;
-import java.util.Objects;
 import java.util.UUID;
 
-@Entity
-@Table
-public class Driver {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
-    @JdbcTypeCode(SqlTypes.UUID)
+public class Profile {
     private UUID id;
 
     private UUID userId;
-
     private Boolean verification;
     private Boolean status;
 
     private Instant createAt;
     private Instant statusUpdateAt;
     private Instant verificationUpdateAt;
+
+
+    public Profile(UUID id, UUID userId, Boolean verification, Boolean status, Instant createAt, Instant statusUpdateAt, Instant verificationUpdateAt) {
+        this.id = id;
+        this.userId = userId;
+        this.verification = verification;
+        this.status = status;
+        this.createAt = createAt;
+        this.statusUpdateAt = statusUpdateAt;
+        this.verificationUpdateAt = verificationUpdateAt;
+    }
 
     public UUID getId() {
         return id;
@@ -82,21 +79,5 @@ public class Driver {
 
     public void setVerificationUpdateAt(Instant verificationUpdateAt) {
         this.verificationUpdateAt = verificationUpdateAt;
-    }
-
-    @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
-        Driver driver = (Driver) o;
-        return getId() != null && Objects.equals(getId(), driver.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return this instanceof HibernateProxy hibernateProxy ? hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

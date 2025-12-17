@@ -4,9 +4,9 @@ import dto.rideStatus.RideStatus;
 import org.faketri.domain.entity.DispatchState;
 import org.faketri.domain.event.StartDispatchForRideEvent;
 import org.faketri.infrastructure.client.location.LocationClient;
+import org.faketri.infrastructure.kafka.producer.KafkaProducer;
 import org.faketri.infrastructure.persistence.repository.DispatchRepository;
 import org.faketri.usecase.mapper.DispatchStateMapper;
-import org.faketri.usecase.policy.DispatchStatePolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,13 +25,15 @@ public class  DispatchServiceImpl implements DispatchService {
     private final LocationClient locationClient;
     private final DispatchStateMapper dispatchStateMapper;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final KafkaProducer kafkaFailedDispatch;
 
-    public DispatchServiceImpl(DispatchRepository dispatchRepository, DispatchStatePolicy dispatchStatePolicy, LocationClient locationClient, DispatchStateMapper dispatchStateMapper, DispatchScheduled dispatchScheduled, ApplicationEventPublisher applicationEventPublisher)
+    public DispatchServiceImpl(DispatchRepository dispatchRepository, LocationClient locationClient, DispatchStateMapper dispatchStateMapper, ApplicationEventPublisher applicationEventPublisher, KafkaProducer kafkaFailedDispatch)
     {
         this.dispatchRepository = dispatchRepository;
         this.locationClient = locationClient;
         this.dispatchStateMapper = dispatchStateMapper;
         this.applicationEventPublisher = applicationEventPublisher;
+        this.kafkaFailedDispatch = kafkaFailedDispatch;
     }
 
     @Override
@@ -65,8 +67,8 @@ public class  DispatchServiceImpl implements DispatchService {
 
     @Override
     public Mono<Boolean> stopDispatch(DispatchState dispatchState) {
-        return dispatchRepository
-                .deleteById(dispatchState.getRideId());
+        kafkaFailedDispatch.sendFailure(dispatchState.getRideId());
+        return dispatchRepository.deleteById(dispatchState.getRideId());
     }
 
     @Override

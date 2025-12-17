@@ -3,8 +3,8 @@ package model
 import (
 	"context"
 	"fmt"
-	"location-service/domain/entity/driver/gateway"
-	"location-service/domain/entity/driver/model"
+	"location-service/domain/entity/profileEntity/gateway"
+	"location-service/domain/entity/profileEntity/model"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -24,7 +24,7 @@ func NewRedisLocationRepository(rdb *redis.Client) gateway.DriverLocateRepositor
 		geoKey:       "drivers:geo",
 		statusPrefix: "drivers:status:",
 		typePrefix:   "drivers:carType:",
-		metaPrefix:   "driver:",
+		metaPrefix:   "profileEntity:",
 	}
 }
 
@@ -83,7 +83,7 @@ func (r *redisLocationRepository) FindNearbyLocation(
 	geoTmp := tempKey("geo")
 	filterTmp := tempKey("flt")
 	resultTmp := tempKey("res")
-	
+
 	defer r.rdb.Del(ctx, geoTmp, filterTmp, resultTmp)
 
 	if err := r.storeGeoNearby(ctx, geoTmp, float64(params.Radius), params.Lat, params.Lon); err != nil {
@@ -122,15 +122,15 @@ func (r *redisLocationRepository) storeGeoNearby(ctx context.Context, dst string
 
 func (r *redisLocationRepository) buildFilterSet(ctx context.Context, dst, status, carType string) error {
 	keys := []string{
-        r.statusPrefix + status,
-        r.typePrefix + carType,
-    }
+		r.statusPrefix + status,
+		r.typePrefix + carType,
+	}
 
-    _, err := r.rdb.ZInterStore(ctx, dst, &redis.ZStore{
-        Keys: keys,
-    }).Result()
+	_, err := r.rdb.ZInterStore(ctx, dst, &redis.ZStore{
+		Keys: keys,
+	}).Result()
 
-	return err;
+	return err
 }
 
 func (r *redisLocationRepository) intersectGeoAndFilter(ctx context.Context, dst, geoTmp, fltTmp string) error {

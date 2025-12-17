@@ -4,10 +4,15 @@ import dto.CarType;
 import dto.address.AddressResponseDto;
 import dto.rideStatus.RideStatus;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class RideResponseDto {
+public class RideResponseDto implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1905122041950251207L;
+
     private UUID id;
     private RideStatus status;
     private AddressResponseDto startAddress;

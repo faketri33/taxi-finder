@@ -1,7 +1,5 @@
 package org.faketri.domain.model.address;
 
-import jakarta.persistence.Column;
-
 import java.util.UUID;
 
 public class Address {

@@ -44,9 +44,6 @@ public class AddressEntity {
         this.id = id;
     }
 
-    public AddressEntity() {
-    }
-
     public Double getLatitude() {
         return latitude;
     }

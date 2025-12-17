@@ -35,8 +35,6 @@ public class RideEntity {
     private LocalDateTime createAt;
     private LocalDateTime cancelAt;
 
-    public RideEntity() {
-    }
 
     @PrePersist
     private void setCreateAt(){

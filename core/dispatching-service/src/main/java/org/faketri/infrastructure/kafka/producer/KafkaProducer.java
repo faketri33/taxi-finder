@@ -22,7 +22,7 @@ public class KafkaProducer{
         kafkaTemplate.send("ride.failure", uuid);
     }
 
-    public void sendNotification(List<UUID> driverForNotification, UUID rideId){
+    public void sendNotification(List<UUID> driverForNotification){
         driverForNotification.forEach(driver ->
             kafkaTemplate.send("notify.send", driver)
         );

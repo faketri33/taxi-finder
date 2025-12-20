@@ -18,6 +18,6 @@ public class NotificationClientImpl implements NotificationClient
 
     @Override
     public Mono<Void> notifyDriver(List<UUID> driverId, UUID rideId) {
-        return Mono.fromRunnable(() -> kafkaProducer.sendNotification(driverId, rideId)).then();
+        return Mono.fromRunnable(() -> kafkaProducer.sendNotification(driverId)).then();
     }
 }

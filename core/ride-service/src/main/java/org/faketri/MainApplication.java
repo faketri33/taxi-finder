@@ -25,6 +25,7 @@ public class MainApplication {
     @Bean
     CommandLineRunner commandLineRunner(KafkaTemplate<String, RideResponseDto> kafkaTemplate) {
         return args -> {
+            log.info("start");
             RideResponseDto ride = new RideResponseDto();
             ride.setCarType(CarType.ECONOMY);
             ride.setStatus(RideStatus.CREATE);

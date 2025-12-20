@@ -9,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
-
-import java.time.Instant;
 import java.util.Set;
 
 @Service
@@ -34,9 +31,8 @@ public class RideCreateListener {
                 ride.getCarType(),
                 RideStatus.DISPATCHING
         );
-        state.setRoundExpiresAt(Instant.now().plusSeconds(190));
+        state.updateRoundTimeout();
         return dispatchService.save(state)
-                .publishOn(Schedulers.boundedElastic())
                 .flatMap(saved -> dispatchService.dispatch(saved.getRideId()))
                 .then();
     }

@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
-	"location-service/domain/entity/profileEntity/gateway"
-	"location-service/domain/entity/profileEntity/model"
+	"location-service/domain/entity/driver/gateway"
+	"location-service/domain/entity/driver/model"
 	"location-service/domain/exception"
 
 	"github.com/google/uuid"

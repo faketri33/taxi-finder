@@ -44,7 +44,7 @@ public class LocationClientImpl  implements LocationClient {
                 .queryParam("limit", findDriverPolicy.getDispatchDriverLimit())
                 .queryParam("lat", r.getAddressStart().getLatitude())
                 .queryParam("lon", r.getAddressStart().getLongitude())
-                .queryParam("exclude", r.getDriverNotificationSend())
+                .queryParam("exclude", r.getDriverNotificationSend().toArray())
                 .build();
     }
 

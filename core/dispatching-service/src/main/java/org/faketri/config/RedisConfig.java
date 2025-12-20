@@ -1,5 +1,7 @@
 package org.faketri.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.faketri.infrastructure.persistence.entity.DispatchStateEntity;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +17,11 @@ public class RedisConfig {
     @Bean
     public ReactiveRedisTemplate<String, DispatchStateEntity> reactiveRedisTemplate(
             ReactiveRedisConnectionFactory factory) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
 
         Jackson2JsonRedisSerializer<DispatchStateEntity> serializer =
-                new Jackson2JsonRedisSerializer<>(DispatchStateEntity.class);
+                new Jackson2JsonRedisSerializer<>(mapper, DispatchStateEntity.class);
 
         RedisSerializationContext<String, DispatchStateEntity> context =
                 RedisSerializationContext

@@ -2,7 +2,7 @@ package gateway
 
 import (
 	"context"
-	"location-service/domain/entity/profileEntity/model"
+	"location-service/domain/entity/driver/model"
 )
 
 type DriverLocateRepository interface {

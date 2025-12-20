@@ -6,8 +6,7 @@ import dto.rideStatus.RideStatus;
 import org.faketri.domain.exception.RoundCountLimitException;
 import org.faketri.usecase.policy.DispatchStatePolicy;
 
-import java.time.Duration;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +20,7 @@ public class DispatchState {
     private CarType carType;
     private RideStatus status;
     private int round = 1;
-    private Instant roundExpiresAt;
+    private LocalDateTime roundExpiresAt;
 
     public DispatchState(UUID rideId, Set<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
         this.rideId = rideId;
@@ -94,20 +93,20 @@ public class DispatchState {
     }
 
     public void incrementRound(DispatchStatePolicy dispatchStatePolicy) {
-        if (dispatchStatePolicy.roundPolicy(this.round + 1))
+        if (!dispatchStatePolicy.roundPolicy(this.round + 1))
             throw new RoundCountLimitException("Round must be between 0 and 4", this);
         this.round++;
     }
 
     public void updateRoundTimeout(){
-        this.roundExpiresAt = Instant.now().plusSeconds(190);
+        this.roundExpiresAt = LocalDateTime.now().plusSeconds(180);
     }
 
-    public Instant getRoundExpiresAt() {
+    public LocalDateTime getRoundExpiresAt() {
         return roundExpiresAt;
     }
 
-    public void setRoundExpiresAt(Instant roundExpiresAt) {
+    public void setRoundExpiresAt(LocalDateTime roundExpiresAt) {
         this.roundExpiresAt = roundExpiresAt;
     }
 

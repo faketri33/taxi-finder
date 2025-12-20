@@ -13,6 +13,6 @@ public class DispatchStatePolicy {
     }
 
     public boolean roundPolicy(int round) {
-        return round > 0 && round <= MAX_ROUND;
+        return round > MAX_ROUND;
     }
 }

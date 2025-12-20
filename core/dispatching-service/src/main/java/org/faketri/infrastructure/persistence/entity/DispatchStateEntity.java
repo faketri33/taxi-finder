@@ -5,7 +5,7 @@ import dto.address.AddressResponseDto;
 import dto.rideStatus.RideStatus;
 import org.springframework.data.redis.core.RedisHash;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,7 +18,7 @@ public class DispatchStateEntity {
     private CarType carType;
     private RideStatus status;
     private int round;
-    private Instant roundExpiresAt;
+    private LocalDateTime roundExpiresAt;
 
     public DispatchStateEntity(UUID id, Set<UUID> driverNotificationSend, AddressResponseDto addressStart, AddressResponseDto addressEnd, CarType carType, RideStatus status) {
         this.rideId = id;
@@ -81,7 +81,7 @@ public class DispatchStateEntity {
         this.round = round;
     }
 
-    public Instant getRoundExpiresAt() {
+    public LocalDateTime getRoundExpiresAt() {
         return roundExpiresAt;
     }
 
@@ -93,7 +93,7 @@ public class DispatchStateEntity {
         this.carType = carType;
     }
 
-    public void setRoundExpiresAt(Instant roundExpiresAt) {
+    public void setRoundExpiresAt(LocalDateTime roundExpiresAt) {
         this.roundExpiresAt = roundExpiresAt;
     }
 

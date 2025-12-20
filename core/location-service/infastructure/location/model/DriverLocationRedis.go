@@ -3,8 +3,8 @@ package model
 import (
 	"context"
 	"fmt"
-	"location-service/domain/entity/profileEntity/gateway"
-	"location-service/domain/entity/profileEntity/model"
+	"location-service/domain/entity/driver/gateway"
+	"location-service/domain/entity/driver/model"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -24,7 +24,7 @@ func NewRedisLocationRepository(rdb *redis.Client) gateway.DriverLocateRepositor
 		geoKey:       "drivers:geo",
 		statusPrefix: "drivers:status:",
 		typePrefix:   "drivers:carType:",
-		metaPrefix:   "profileEntity:",
+		metaPrefix:   "driver:",
 	}
 }
 

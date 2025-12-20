@@ -2,8 +2,8 @@ package infrastructure
 
 import (
 	"context"
-	"location-service/domain/entity/profileEntity/gateway"
-	"location-service/domain/entity/profileEntity/model"
+	"location-service/domain/entity/driver/gateway"
+	"location-service/domain/entity/driver/model"
 	"location-service/usecase"
 	"strconv"
 
@@ -49,12 +49,12 @@ func (h *LocationHandler) GetNearby(c *fiber.Ctx) error {
 	status := c.Query("status", "free")
 	limitStr := c.Query("limit", "10")
 
-	distance, err := string.ParseFloat(distanceStr, 64)
+	distance, err := strconv.ParseFloat(distanceStr, 64)
 	if err != nil {
 		distance = 3000
 	}
 
-	limit, err := string.Ati(limitStr)
+	limit, err := strconv.Atoi(limitStr)
 	if err != nil {
 		limit = 10
 	}

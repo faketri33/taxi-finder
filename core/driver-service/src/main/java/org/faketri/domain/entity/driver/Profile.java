@@ -8,18 +8,18 @@ public class Profile {
 
     private UUID userId;
     private Boolean verification;
-    private Boolean status;
+    private Boolean isActive;
 
     private Instant createAt;
     private Instant statusUpdateAt;
     private Instant verificationUpdateAt;
 
 
-    public Profile(UUID id, UUID userId, Boolean verification, Boolean status, Instant createAt, Instant statusUpdateAt, Instant verificationUpdateAt) {
+    public Profile(UUID id, UUID userId, Boolean verification, Boolean isActive, Instant createAt, Instant statusUpdateAt, Instant verificationUpdateAt) {
         this.id = id;
         this.userId = userId;
         this.verification = verification;
-        this.status = status;
+        this.isActive = isActive;
         this.createAt = createAt;
         this.statusUpdateAt = statusUpdateAt;
         this.verificationUpdateAt = verificationUpdateAt;
@@ -49,12 +49,12 @@ public class Profile {
         this.verification = verification;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getIsActive() {
+        return isActive;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public Instant getCreateAt() {

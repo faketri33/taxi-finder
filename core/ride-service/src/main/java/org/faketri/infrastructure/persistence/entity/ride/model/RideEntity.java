@@ -4,10 +4,12 @@ import dto.CarType;
 import dto.rideStatus.RideStatus;
 import jakarta.persistence.*;
 import org.faketri.infrastructure.persistence.entity.address.model.AddressEntity;
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -27,6 +29,9 @@ public class RideEntity {
     private RideStatus status;
     @Enumerated(EnumType.STRING)
     private CarType carType;
+    @Column(nullable = false, precision = 5, scale = 2)
+    @Check(constraints = "price >= 0")
+    private BigDecimal price;
     @ManyToOne(cascade = CascadeType.ALL)
     private AddressEntity startAddress;
     @ManyToOne(cascade = CascadeType.ALL)

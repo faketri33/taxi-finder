@@ -7,15 +7,7 @@ public class Address {
 
     private Double latitude;
     private Double longitude;
-
-    private String rawAddress;
-    private String formattedAddress;
-
-    private String city;
-    private String street;
-    private String houseNumber;
-    private String country;
-    private String postalCode;
+    private String fullname;
 
     public UUID getId() {
         return id;
@@ -30,6 +22,8 @@ public class Address {
     }
 
     public void setLatitude(Double latitude) {
+        if (latitude < -90.0 && latitude > 90.0)
+            throw new IllegalArgumentException("latitude dont can be < -90 or > 90");
         this.latitude = latitude;
     }
 
@@ -38,62 +32,16 @@ public class Address {
     }
 
     public void setLongitude(Double longitude) {
+        if (longitude < -180.0 && longitude > 180.0)
+            throw new IllegalArgumentException("longitude dont can be < -180 or > 180");
         this.longitude = longitude;
     }
 
-    public String getRawAddress() {
-        return rawAddress;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setRawAddress(String rawAddress) {
-        this.rawAddress = rawAddress;
-    }
-
-    public String getFormattedAddress() {
-        return formattedAddress;
-    }
-
-    public void setFormattedAddress(String formattedAddress) {
-        this.formattedAddress = formattedAddress;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

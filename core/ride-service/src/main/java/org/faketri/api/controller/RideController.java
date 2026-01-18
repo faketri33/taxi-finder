@@ -2,15 +2,19 @@ package org.faketri.api.controller;
 
 import dto.ride.RideResponseDto;
 import jakarta.ws.rs.PathParam;
+import org.faketri.api.dto.mapper.AddressMapper;
 import org.faketri.api.dto.mapper.RideMapper;
+import org.faketri.api.dto.request.AddressRequestDto;
 import org.faketri.api.dto.request.RideRequestDto;
+import org.faketri.usecase.price.StandardPricePolicy;
+import org.faketri.usecase.price.SubscriberPricePolicy;
 import org.faketri.usecase.ride.RideService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @RestController
@@ -18,10 +22,12 @@ import java.util.UUID;
 public class RideController {
     private final RideService rideService;
     private final RideMapper rideMapper;
+    private final AddressMapper addressMapper;
 
-    public RideController(RideService rideService, RideMapper rideMapper) {
+    public RideController(RideService rideService, RideMapper rideMapper, AddressMapper addressMapper) {
         this.rideService = rideService;
         this.rideMapper = rideMapper;
+        this.addressMapper = addressMapper;
     }
 
     @PostMapping("/{userId}/request")
@@ -41,6 +47,20 @@ public class RideController {
         return ResponseEntity.ok(rideService
                 .userHistoryRides(userId, Pageable.ofSize(20))
                 .map(rideMapper::toResponse)
+        );
+    }
+
+    @PostMapping("/standard/price")
+    public ResponseEntity<BigDecimal> getPrice(AddressRequestDto start, AddressRequestDto end) {
+        return ResponseEntity.ok(rideService
+                .priceCalculate(addressMapper.toDomain(start), addressMapper.toDomain(end), new StandardPricePolicy())
+        );
+    }
+
+    @PostMapping("/subscribe/price")
+    public ResponseEntity<BigDecimal> getPriceSubscribe(AddressRequestDto start, AddressRequestDto end) {
+        return ResponseEntity.ok(rideService
+                .priceCalculate(addressMapper.toDomain(start), addressMapper.toDomain(end), new SubscriberPricePolicy())
         );
     }
 }

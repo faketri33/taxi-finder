@@ -14,5 +14,7 @@ public interface RideRepository {
     Page<RideEntity> findByUserId(UUID uuid, Pageable pageable);
     int acceptRide(UUID rideId, UUID driverId);
 
+    int cancel(UUID rideId);
+
     RideEntity save(RideEntity e);
 }

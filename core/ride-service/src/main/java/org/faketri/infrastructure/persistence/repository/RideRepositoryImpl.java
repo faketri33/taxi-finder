@@ -34,6 +34,11 @@ public class RideRepositoryImpl implements RideRepository {
     }
 
     @Override
+    public int cancel(UUID rideId) {
+        return jpaRideRepository.cancel(rideId, RideStatus.CANCEL);
+    }
+
+    @Override
     public RideEntity save(RideEntity e) {
         return jpaRideRepository.save(e);
     }

@@ -22,7 +22,8 @@ public class RideAcceptListener {
         return dispatchService.get(rideId)
                 .flatMap(state -> {
                     state.setStatus(RideStatus.ACCEPTED);
-                    return dispatchService.save(state);
+                    return dispatchService.save(state)
+                            .then(dispatchService.stopDispatch(rideId));
                 })
                 .then();
     }

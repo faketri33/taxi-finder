@@ -8,8 +8,12 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AddressMapper {
+
     AddressResponseDto toResponseDto(Address domain);
+
     Address toDomain(AddressRequestDto dto);
+
     Address toDomain(AddressEntity domain);
+
     AddressEntity toEntity(Address address);
 }

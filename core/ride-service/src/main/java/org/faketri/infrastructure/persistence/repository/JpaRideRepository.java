@@ -19,4 +19,9 @@ public interface JpaRideRepository extends JpaRepository<RideEntity, UUID> {
     @Modifying
     @Query("update RideEntity r set r.driverId = ?1, r.status = ?2 where r.id = ?3 and r.status = ?4")
     int rideAccept(UUID driverId, RideStatus status, UUID id, RideStatus status1);
+
+    @Transactional
+    @Modifying
+    @Query("update RideEntity r set r.status = ?1 where r.id = ?2")
+    int cancel(UUID id, RideStatus status);
 }

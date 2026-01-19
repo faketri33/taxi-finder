@@ -13,33 +13,24 @@ import java.util.UUID;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
     @Column(unique = true)
     private String username;
-    private String number;
-    private String password;
+    private String phoneNumber;
     private String city;
 
-    private LocalDateTime createAt;
 
-    public User(UUID id, String username, String number, String password, String city, LocalDateTime createAt) {
+    public User(UUID id, String username, String number, String city) {
         this.id = id;
         this.username = username;
-        this.number = number;
-        this.password = password;
+        this.phoneNumber = number;
         this.city = city;
-        this.createAt = createAt;
     }
 
     public User() {}
 
-    @PrePersist
-    private void setCreateAt(){
-        createAt = LocalDateTime.now();
-    }
 
     public UUID getId() {
         return id;
@@ -57,20 +48,12 @@ public class User {
         this.username = username;
     }
 
-    public String getNumber() {
-        return number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getCity() {
@@ -79,10 +62,6 @@ public class User {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
     }
 
     @Override

@@ -5,4 +5,18 @@
     <option name="newEntityIdStrategy" value="UUID" />
     <option name="renamerInitialized" value="true" />
   </component>
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="ride-service" name="Default">
+        <packages>
+          <package value="org.faketri" />
+        </packages>
+      </persistence-unit>
+      <persistence-unit moduleName="dispatching-service" name="Default">
+        <packages>
+          <package value="org.faketri" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
 </project>

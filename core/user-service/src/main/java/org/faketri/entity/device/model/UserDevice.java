@@ -19,8 +19,9 @@ public class UserDevice {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
-
+    @Column(nullable = false)
     private String deviceToken;
+    @Column(nullable = false)
     private String platform;
     private Instant createAt;
 
@@ -33,6 +34,11 @@ public class UserDevice {
     }
 
     public UserDevice() {
+    }
+
+    @PrePersist
+    void create(){
+        createAt = Instant.now();
     }
 
     public User getUserId() {
@@ -69,11 +75,6 @@ public class UserDevice {
 
     public Instant getCreateAt() {
         return createAt;
-    }
-
-    @PrePersist
-    private void setCreateAt() {
-        this.createAt = Instant.now();
     }
 
     @Override

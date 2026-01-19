@@ -23,6 +23,7 @@
         <module>core/driver-service</module>
         <module>common/eureka</module>
         <module>common/gateway</module>
+        <module>common/auth-service</module>
         <module>shared</module>
     </modules>
 
@@ -93,7 +94,14 @@
                 <artifactId>mapstruct</artifactId>
                 <version>1.6.3</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>10.7</version>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <build>

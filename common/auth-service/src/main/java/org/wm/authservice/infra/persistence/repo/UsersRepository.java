@@ -1,11 +1,14 @@
 package org.wm.authservice.infra.persistence.repo;
 
-import org.wm.authservice.infra.persistence.entity.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.wm.authservice.infra.persistence.entity.UsersEntity;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface UsersRepository {
+@Repository
+public interface UsersRepository extends JpaRepository<UsersEntity, UUID> {
 
-    Optional<Users> findByUsername(String username);
-    Users save(Users us);
+    Optional<UsersEntity> findByUsername(String username);
 }

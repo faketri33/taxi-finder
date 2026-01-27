@@ -17,22 +17,22 @@ public class JwtController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody UserAuthRequest urr){
-
+    public void register(@RequestBody UserAuthRequest urr) {
+        authService.register(urr);
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody UserAuthRequest urr){
-
+    public void login(@RequestBody UserAuthRequest urr) {
+        authService.login(urr);
     }
 
-    @GetMapping("/refresh")
-    public void refresh(){
-
+    @GetMapping("/token-refresh")
+    public void refresh(@RequestBody String token) {
+        authService.tokenUpdate(token);
     }
 
     @GetMapping("/.well-known/")
-    public void publicKeys(){
-
+    public void publicKeys() {
+        authService.publicKeys();
     }
 }

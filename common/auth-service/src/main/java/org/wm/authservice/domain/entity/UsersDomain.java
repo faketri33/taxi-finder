@@ -1,11 +1,12 @@
-package org.wm.authservice.infra.persistence.entity;
+package org.wm.authservice.domain.entity;
 
-import javax.management.relation.Role;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
-public class Users {
+import javax.management.relation.Role;
+
+public class UsersDomain {
 
     private UUID id;
 
@@ -19,7 +20,8 @@ public class Users {
     private Instant createAt;
     private Instant updateAt;
 
-    public Users(UUID id, String username, String password, Set<Role> roles, Boolean isActive, Instant createAt, Instant updateAt) {
+    public UsersDomain(UUID id, String username, String password, Set<Role> roles, Boolean isActive, Instant createAt,
+            Instant updateAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,8 +31,6 @@ public class Users {
         this.updateAt = updateAt;
     }
 
-    public Users() {
-    }
 
     public UUID getId() {
         return id;
@@ -56,14 +56,6 @@ public class Users {
         this.password = password;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -72,11 +64,31 @@ public class Users {
         this.roles = roles;
     }
 
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Instant getCreateAt() {
         return createAt;
+    }
+
+    public void setCreateAt(Instant createAt) {
+        this.createAt = createAt;
     }
 
     public Instant getUpdateAt() {
         return updateAt;
     }
+
+    public void setUpdateAt(Instant updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    
+
+    
 }

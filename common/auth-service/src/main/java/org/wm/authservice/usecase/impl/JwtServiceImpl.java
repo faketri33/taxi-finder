@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.wm.authservice.domain.entity.CustomUserDetails;
+import org.wm.authservice.domain.exceptions.JwtGeneratedExceptions;
 import org.wm.authservice.usecase.JwtService;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -63,6 +64,8 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public String[] generateJwt(CustomUserDetails userDetails) {
+        if (userDetails == null || !userDetails.isActive())
+            throw new JwtGeneratedExceptions("Cannot create jwt token by user because account disable or null pointer");
         try {
             return new String[]{
                     serializedJwt(userDetails, privateKeyTtlMs, JwtType.ACCESS),
@@ -70,7 +73,7 @@ public class JwtServiceImpl implements JwtService {
             };
         } catch (JOSEException ex) {
             log.error(ex.getLocalizedMessage());
-            throw new RuntimeException("Cannot create jwt token");
+            throw new JwtGeneratedExceptions("Cannot create jwt token by " + userDetails.getId());
         }
     }
 

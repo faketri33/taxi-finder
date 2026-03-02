@@ -14,11 +14,14 @@ public class CustomUserDetails implements UserDetails {
     private final String password;
     private final Set<GrantedAuthority> authorities;
 
-    public CustomUserDetails(UUID id, String username, String password, Set<GrantedAuthority> authorities) {
+    private Boolean isActive;
+
+    public CustomUserDetails(UUID id, String username, String password, Set<GrantedAuthority> authorities, Boolean isActive) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
+        this.isActive = isActive;
     }
 
     @Override
@@ -36,8 +39,13 @@ public class CustomUserDetails implements UserDetails {
         return username;
     }
 
-    public UUID getId() {
-        return id;
+    public UUID getId() { return id; }
+
+    public final Boolean isActive(){
+        return isActive;
     }
 
+    public void disable(){
+        isActive = false;
+    }
 }

@@ -26,7 +26,8 @@ public interface UsersMapper {
                 ud.getRoles()
                         .stream()
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toSet()),
+                ud.getActive()
         );
     }
 
@@ -37,7 +38,8 @@ public interface UsersMapper {
                 ud.getRoles()
                         .stream()
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
-                        .collect(Collectors.toSet())
+                        .collect(Collectors.toSet()),
+                ud.isActive()
         );
     }
 }

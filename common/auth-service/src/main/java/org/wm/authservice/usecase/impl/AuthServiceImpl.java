@@ -68,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
                     ));
         } catch (BadCredentialsException ex) {
             log.error("Not valid password from user with login {}", urr.username());
-            throw new RuntimeException("password not valid");
+            throw new BadCredentialsException("Invalidate login data");
         }
 
         final CustomUserDetails cud = (CustomUserDetails) userDetailsService.loadUserByUsername(urr.username());

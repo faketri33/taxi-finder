@@ -70,12 +70,16 @@ public class UsersDomain {
         this.roles = roles;
     }
 
-    public Boolean getIsActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void disable(){
+        isActive = false;
+    }
+
+    public void enable(){
+        isActive = true;
     }
 
     public Instant getCreateAt() {

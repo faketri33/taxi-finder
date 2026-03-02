@@ -5,7 +5,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-@Target({ ElementType.FIELD, ElementType.PARAMETER })
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CarNumberValidator.class)
 @Documented

@@ -98,7 +98,7 @@ public class DispatchState {
         this.round++;
     }
 
-    public void updateRoundTimeout(){
+    public void updateRoundTimeout() {
         this.roundExpiresAt = LocalDateTime.now().plusSeconds(180);
     }
 

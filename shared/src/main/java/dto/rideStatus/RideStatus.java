@@ -2,7 +2,7 @@ package dto.rideStatus;
 
 public enum RideStatus {
     CREATE,
-    DISPATCHING ,
+    DISPATCHING,
     ACCEPTED,
     CANCEL,
     FAILED,

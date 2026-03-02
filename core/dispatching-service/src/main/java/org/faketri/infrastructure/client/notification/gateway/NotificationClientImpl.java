@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class NotificationClientImpl implements NotificationClient
-{
+public class NotificationClientImpl implements NotificationClient {
     private final KafkaProducer kafkaProducer;
 
     public NotificationClientImpl(KafkaProducer kafkaProducer) {

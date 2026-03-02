@@ -1,10 +1,12 @@
 package org.wm.authservice.domain.entity;
 
+import org.wm.authservice.infra.persistence.entity.Roles;
+
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.management.relation.Role;
 
 public class UsersDomain {
 
@@ -13,15 +15,15 @@ public class UsersDomain {
     private String username;
     private String password;
 
-    private Set<Role> roles;
+    private Set<Roles> roles = new HashSet<>();
 
     private Boolean isActive;
 
     private Instant createAt;
     private Instant updateAt;
 
-    public UsersDomain(UUID id, String username, String password, Set<Role> roles, Boolean isActive, Instant createAt,
-            Instant updateAt) {
+    public UsersDomain(UUID id, String username, String password, Set<Roles> roles, Boolean isActive, Instant createAt,
+                       Instant updateAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -29,6 +31,10 @@ public class UsersDomain {
         this.isActive = isActive;
         this.createAt = createAt;
         this.updateAt = updateAt;
+    }
+
+    public UsersDomain() {
+
     }
 
 
@@ -56,11 +62,11 @@ public class UsersDomain {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public Set<Roles> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
 
@@ -88,7 +94,5 @@ public class UsersDomain {
         this.updateAt = updateAt;
     }
 
-    
 
-    
 }

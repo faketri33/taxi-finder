@@ -37,7 +37,7 @@ public class UserDevice {
     }
 
     @PrePersist
-    void create(){
+    void create() {
         createAt = Instant.now();
     }
 

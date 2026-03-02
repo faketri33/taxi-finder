@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    public ResponseEntity<String> test(){
+    public ResponseEntity<String> test() {
         return ResponseEntity.ok().body("Hello");
     }
 }

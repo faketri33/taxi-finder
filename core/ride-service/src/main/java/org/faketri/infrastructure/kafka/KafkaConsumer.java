@@ -10,8 +10,8 @@ public class KafkaConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(KafkaConsumer.class);
 
-    @KafkaListener(topics="ride.failure")
-    public void failureRide(String rideID){
+    @KafkaListener(topics = "ride.failure")
+    public void failureRide(String rideID) {
         log.info("failed dispatch for ride {}", rideID);
     }
 }

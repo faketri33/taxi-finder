@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-253.29346.138">
+  <component name="dataSourceStorageLocal" created-in="IU-253.30387.90">
     <data-source name="@localhost" uuid="854b143e-c145-4a25-9d78-6428854a3c79">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="REDIS" />
       <secret-storage>master_key</secret-storage>
@@ -17,6 +17,21 @@
           <node kind="schema">
             <name qname="@" />
             <name qname="0" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="postgres@localhost" uuid="5a40d316-5f45-4f41-a0e6-e67929c91854">
+      <database-info product="PostgreSQL" version="15.16" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="15.16" exact-driver-version="42.7">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>faketri</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema" qname="@" />
           </node>
         </introspection-scope>
       </schema-mapping>

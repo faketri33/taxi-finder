@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-public class KafkaProducer{
+public class KafkaProducer {
     private static final Logger log = LoggerFactory.getLogger(KafkaProducer.class);
     private final KafkaTemplate<String, UUID> kafkaTemplate;
 
@@ -17,14 +17,14 @@ public class KafkaProducer{
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendFailure(UUID uuid){
+    public void sendFailure(UUID uuid) {
         log.info("failed find driver for ride {}", uuid);
         kafkaTemplate.send("ride.failure", uuid);
     }
 
-    public void sendNotification(List<UUID> driverForNotification){
+    public void sendNotification(List<UUID> driverForNotification) {
         driverForNotification.forEach(driver ->
-            kafkaTemplate.send("notify.send", driver)
+                kafkaTemplate.send("notify.send", driver)
         );
     }
 }

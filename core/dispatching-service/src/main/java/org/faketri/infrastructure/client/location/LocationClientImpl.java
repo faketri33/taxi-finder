@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.UUID;
 
 @Component
-public class LocationClientImpl  implements LocationClient {
+public class LocationClientImpl implements LocationClient {
 
     private final FindDriverPolicy findDriverPolicy;
     private static final Logger log = LoggerFactory.getLogger(LocationClientImpl.class);

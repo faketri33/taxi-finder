@@ -1,23 +1,11 @@
 package org.wm.authservice.infra.persistence.entity;
 
-import javax.management.relation.Role;
-
-import org.hibernate.annotations.Check;
+import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,17 +26,19 @@ public class UsersEntity {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany
-    private Set<Role> roles;
+    @ElementCollection(targetClass = Roles.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "users_role",
+            joinColumns = @JoinColumn(name = "users_id"))
+    private Set<Roles> roles = new HashSet<>();
 
     @Column(nullable = false)
-    private Boolean isActive;
+    private Boolean isActive = Boolean.TRUE;
 
     private Instant createAt;
     private Instant updateAt;
 
-    public UsersEntity(UUID id, String username, String password, Set<Role> roles, Boolean isActive, Instant createAt,
-            Instant updateAt) {
+    public UsersEntity(UUID id, String username, String password, Set<Roles> roles, Boolean isActive, Instant createAt,
+                       Instant updateAt) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -103,11 +93,11 @@ public class UsersEntity {
         isActive = active;
     }
 
-    public Set<Role> getRoles() {
+    public Set<Roles> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
 

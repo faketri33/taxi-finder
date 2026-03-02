@@ -10,15 +10,15 @@ public class FindDriverPolicy {
     private static final String DEFAULT_DRIVER_STATUS = "free";
     private static final String IF_LAST_ROUND_DRIVER_STATUS = "busy";
 
-    public int getDispatchDistance(int round){
+    public int getDispatchDistance(int round) {
         return DEFAULT_DISPATCH_DISTANCE * round;
     }
 
-    public int getDispatchDriverLimit(){
+    public int getDispatchDriverLimit() {
         return DEFAULT_DISPATCH_DRIVER_LIMIT;
     }
 
-    public String getDriverStatus(int round){
+    public String getDriverStatus(int round) {
         return DispatchStatePolicy.getMaxRound() == round ?
                 IF_LAST_ROUND_DRIVER_STATUS : DEFAULT_DRIVER_STATUS;
     }

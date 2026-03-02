@@ -31,19 +31,19 @@ public class RideController {
     }
 
     @PostMapping("/{userId}/request")
-    public ResponseEntity<RideResponseDto> request(@PathVariable("userId") UUID userId, @RequestBody RideRequestDto rideRequestDto){
+    public ResponseEntity<RideResponseDto> request(@PathVariable("userId") UUID userId, @RequestBody RideRequestDto rideRequestDto) {
         var e = rideMapper.toDomain(rideRequestDto);
         e.setUserId(userId);
         return ResponseEntity.ok(rideMapper.toResponse(rideService.save(e)));
     }
 
     @PostMapping("/{driverId}/accept")
-    public ResponseEntity<Boolean> accept(@PathVariable("driverId") UUID userId, @PathParam("rideId") UUID rideId){
+    public ResponseEntity<Boolean> accept(@PathVariable("driverId") UUID userId, @PathParam("rideId") UUID rideId) {
         return ResponseEntity.ok(rideService.accept(rideId, userId));
     }
 
     @GetMapping("/{userId}/history")
-    public ResponseEntity<Page<RideResponseDto>> getHistory(@PathVariable("userId") UUID userId){
+    public ResponseEntity<Page<RideResponseDto>> getHistory(@PathVariable("userId") UUID userId) {
         return ResponseEntity.ok(rideService
                 .userHistoryRides(userId, Pageable.ofSize(20))
                 .map(rideMapper::toResponse)

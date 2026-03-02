@@ -12,7 +12,7 @@ public class RideCreateEvent extends ApplicationEvent {
         this.rideResponse = rideResponse;
     }
 
-    public String getEventName(){
+    public String getEventName() {
         return EVENT_NAME;
     }
 

@@ -1,11 +1,13 @@
 package org.faketri.entity.user.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -29,7 +31,8 @@ public class User {
         this.city = city;
     }
 
-    public User() {}
+    public User() {
+    }
 
 
     public UUID getId() {

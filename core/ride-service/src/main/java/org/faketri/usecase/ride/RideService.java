@@ -11,6 +11,7 @@ import java.util.UUID;
 
 public interface RideService {
     Ride get(UUID rideId);
+
     Ride save(Ride ride);
 
     BigDecimal priceCalculate(Address start, Address end, DefaultPricePolicy policy);

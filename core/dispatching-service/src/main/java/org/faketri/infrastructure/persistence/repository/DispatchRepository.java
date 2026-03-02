@@ -10,5 +10,6 @@ public interface DispatchRepository {
     Mono<DispatchStateEntity> findById(UUID id);
 
     Mono<DispatchStateEntity> save(DispatchStateEntity dispatchStateEntity);
+
     Mono<Boolean> deleteById(UUID id);
 }

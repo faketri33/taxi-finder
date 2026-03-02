@@ -30,7 +30,7 @@ public class MainApplication {
             ride.setCarType(CarType.ECONOMY);
             ride.setStatus(RideStatus.CREATE);
             ride.setId(UUID.randomUUID());
-            ride.setStartAddress(new AddressResponseDto(55.347797, 42.013022, "","","","","","",""));
+            ride.setStartAddress(new AddressResponseDto(55.347797, 42.013022, "", "", "", "", "", "", ""));
             log.info("Ride create id : {}", ride.getId());
             kafkaTemplate.send("ride.create", ride);
         };

@@ -8,7 +8,7 @@ public class DispatchStatePolicy {
 
     private static final int MAX_ROUND = 4;
 
-    public static int getMaxRound(){
+    public static int getMaxRound() {
         return MAX_ROUND;
     }
 

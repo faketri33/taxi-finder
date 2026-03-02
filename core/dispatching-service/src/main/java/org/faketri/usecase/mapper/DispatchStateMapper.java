@@ -10,6 +10,7 @@ public interface DispatchStateMapper {
 
     @Mapping(target = "rideId", source = "rideId")
     DispatchStateEntity toEntity(DispatchState e);
+
     @Mapping(target = "rideId", source = "rideId")
     DispatchState toDomain(DispatchStateEntity e);
 }

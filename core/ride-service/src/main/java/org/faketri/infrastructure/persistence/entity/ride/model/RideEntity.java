@@ -42,7 +42,7 @@ public class RideEntity {
 
 
     @PrePersist
-    private void setCreateAt(){
+    private void setCreateAt() {
         createAt = LocalDateTime.now();
     }
 

@@ -119,12 +119,9 @@ cd taxi-finder
 cp env/.env.example env/.env
 # Отредактировать env/.env под своё окружение
 
+cd devops/docker
 # 3. Запустить
-docker-compose \
-  -f devops/docker/docker-compose.yml \
-  -f devops/docker/docker-compose.database.yml \
-  -f devops/docker/docker-compose.tools.yml \
-  up --build
+docker-compose --env-file your/path/to/env -f docker-compose.yml -f docker-compose.database.yml -f docker-compose.tools.yml up --build
 ```
 
 ### Сервисы после запуска

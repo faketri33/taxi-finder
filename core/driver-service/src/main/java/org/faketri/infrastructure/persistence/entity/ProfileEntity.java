@@ -19,22 +19,24 @@ public class ProfileEntity {
     @JdbcTypeCode(SqlTypes.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private UUID userId;
 
-    private Boolean verification;
-    private Boolean status;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Car car;
+
+    @Enumerated(EnumType.STRING)
+    private EVerificationStatus verification;
 
     private Instant createAt;
-    private Instant statusUpdateAt;
     private Instant verificationUpdateAt;
 
-    public ProfileEntity(UUID id, UUID userId, Boolean verification, Boolean status, Instant createAt, Instant statusUpdateAt, Instant verificationUpdateAt) {
+    public ProfileEntity(UUID id, UUID userId, Car car, EVerificationStatus verification, Instant createAt, Instant verificationUpdateAt) {
         this.id = id;
         this.userId = userId;
+        this.car = car;
         this.verification = verification;
-        this.status = status;
         this.createAt = createAt;
-        this.statusUpdateAt = statusUpdateAt;
         this.verificationUpdateAt = verificationUpdateAt;
     }
 
@@ -58,20 +60,12 @@ public class ProfileEntity {
         this.userId = userId;
     }
 
-    public Boolean getVerification() {
+    public EVerificationStatus getVerification() {
         return verification;
     }
 
-    public void setVerification(Boolean verification) {
+    public void setVerification(EVerificationStatus verification) {
         this.verification = verification;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public Instant getCreateAt() {
@@ -82,20 +76,20 @@ public class ProfileEntity {
         this.createAt = createAt;
     }
 
-    public Instant getStatusUpdateAt() {
-        return statusUpdateAt;
-    }
-
-    public void setStatusUpdateAt(Instant statusUpdateAt) {
-        this.statusUpdateAt = statusUpdateAt;
-    }
-
     public Instant getVerificationUpdateAt() {
         return verificationUpdateAt;
     }
 
     public void setVerificationUpdateAt(Instant verificationUpdateAt) {
         this.verificationUpdateAt = verificationUpdateAt;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     @Override

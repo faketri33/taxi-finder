@@ -1,5 +1,7 @@
 package org.faketri.domain.entity.driver;
 
+import org.faketri.infrastructure.persistence.entity.EVerificationStatus;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -7,21 +9,17 @@ public class Profile {
     private UUID id;
 
     private UUID userId;
-    private Boolean verification;
-    private Boolean isActive;
+    private EVerificationStatus verification;
 
     private Instant createAt;
-    private Instant statusUpdateAt;
     private Instant verificationUpdateAt;
 
 
-    public Profile(UUID id, UUID userId, Boolean verification, Boolean isActive, Instant createAt, Instant statusUpdateAt, Instant verificationUpdateAt) {
+    public Profile(UUID id, UUID userId, EVerificationStatus verification, Instant createAt, Instant verificationUpdateAt) {
         this.id = id;
         this.userId = userId;
         this.verification = verification;
-        this.isActive = isActive;
         this.createAt = createAt;
-        this.statusUpdateAt = statusUpdateAt;
         this.verificationUpdateAt = verificationUpdateAt;
     }
 
@@ -41,20 +39,12 @@ public class Profile {
         this.userId = userId;
     }
 
-    public Boolean getVerification() {
+    public EVerificationStatus getVerification() {
         return verification;
     }
 
-    public void setVerification(Boolean verification) {
+    public void setVerification(EVerificationStatus verification) {
         this.verification = verification;
-    }
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
     }
 
     public Instant getCreateAt() {
@@ -63,14 +53,6 @@ public class Profile {
 
     public void setCreateAt(Instant createAt) {
         this.createAt = createAt;
-    }
-
-    public Instant getStatusUpdateAt() {
-        return statusUpdateAt;
-    }
-
-    public void setStatusUpdateAt(Instant statusUpdateAt) {
-        this.statusUpdateAt = statusUpdateAt;
     }
 
     public Instant getVerificationUpdateAt() {

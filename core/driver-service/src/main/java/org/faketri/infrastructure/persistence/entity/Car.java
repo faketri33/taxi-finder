@@ -27,7 +27,6 @@ public class Car {
 
     private Instant createAt;
 
-
     @OneToOne
     @JoinColumn(name = "profile_id")
     private ProfileEntity profileEntityId;
